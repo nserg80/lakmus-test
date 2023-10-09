@@ -34,7 +34,7 @@ export class DiagnosesFormComponent implements OnInit, OnDestroy {
     this.apiService.getDiagnoses()
       .pipe(
         tap((data: any[]) => {
-          this.diagnoses = data;
+          this.diagnoses = JSON.parse(JSON.stringify(data));
         }),
       )
       .subscribe();
@@ -45,6 +45,9 @@ export class DiagnosesFormComponent implements OnInit, OnDestroy {
   }
 
   public handleGetList(elementIndex: number): void {
+    if (!this.selectedDiagnoses[elementIndex].name) {
+      this.selectedDiagnoses[elementIndex].id = undefined;
+    }
     this.getDiagnoses();
 
     this.diagnoses = this.diagnoses.filter(diagnosis => !this.selectedDiagnoses.some(selectedDiagnosis => selectedDiagnosis.id === diagnosis.id));
@@ -107,13 +110,13 @@ export class DiagnosesFormComponent implements OnInit, OnDestroy {
         };
       }
       return null
-    })
+    }).filter(item => item !== null)
 
     const jsonData = {
       encounter: {
         date: new Date(this.date).toISOString()
       },
-      conditions: conditions
+      conditions: conditions.length ? conditions : null
     };
     this.formattedJson = JSON.stringify(jsonData, null, 2);
   }

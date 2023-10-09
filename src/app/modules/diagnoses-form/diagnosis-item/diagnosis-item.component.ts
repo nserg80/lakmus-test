@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, Input, Output, ElementRef, HostListener, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { Diagnosis } from '../diagnoses.models';
 
+
 @Component({
   selector: 'diagnosis-item',
   templateUrl: './diagnosis-item.component.html',
@@ -14,6 +15,7 @@ export class DiagnosisItemComponent implements OnInit, OnDestroy, OnChanges {
 
   public diagnosesToShow: any[] = [];
   public isShowList: boolean = false;
+  private filterValue: string = '';
 
 
   public constructor(
@@ -28,6 +30,7 @@ export class DiagnosisItemComponent implements OnInit, OnDestroy, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['diagnoses']) {
       this.diagnosesToShow = changes['diagnoses'].currentValue;
+      this.filterDiagnoses(this.filterValue)
     }
   }
 
@@ -59,13 +62,9 @@ export class DiagnosisItemComponent implements OnInit, OnDestroy, OnChanges {
 
   public onInputChange(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
-    const inputValue = inputElement.value;
+    this.filterValue = inputElement.value;
 
-    if (!inputValue) {
-      this.getListEvent.emit();
-    }
-
-    this.filterDiagnoses(inputValue)
+    this.getListEvent.emit();
   }
 
   public filterDiagnoses(inputValue: string): void {

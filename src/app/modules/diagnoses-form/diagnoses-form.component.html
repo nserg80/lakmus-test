@@ -21,7 +21,7 @@
                         (getListEvent)="handleGetList(i)"
                         (selectedDiagnosisEvent)="handleSelectedDiagnosis($event, i)"></diagnosis-item>
 
-        <button *ngIf="selectedDiagnoses[selectedDiagnoses.length-1]?.name"
+        <button *ngIf="selectedDiagnoses[selectedDiagnoses.length-1]?.id"
                 (click)="addItem()"
                 class="diagnoses-form__add-item">+ додати ще</button>
 

@@ -13,6 +13,10 @@
             border-radius: 8px 8px 0 0;
         }
 
+        &.error {
+            border-color: rgb(253, 29, 29);
+        }
+
         &::after {
             content: '🢓';
             position: absolute;
@@ -24,6 +28,8 @@
         }
 
         &-input {
+            position: relative;
+            z-index: 1;
             width: 100%;
             background: none;
             border: none;
@@ -38,8 +44,8 @@
         position: absolute;
         z-index: 10;
         top: 100%;
-        left: 0;
-        right: 0;
+        left: -1px;
+        right: -1px;
         max-height: 300px;
         overflow-y: auto;
         margin: 0;
