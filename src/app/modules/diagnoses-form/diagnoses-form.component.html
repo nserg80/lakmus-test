@@ -1,0 +1,45 @@
+<form class="diagnoses-form">
+    <div class="diagnoses-form__date-wrap">
+        <div class="diagnoses-form__date">
+            <h4 for="date">Дата:</h4>
+            <input [(ngModel)]="date"
+                   name="date"
+                   class="diagnoses-form__date-input"
+                   [class.error]="dateError"
+                   (change)="checkDateValid()"
+                   type="date"
+                   id="date">
+        </div>
+        <p *ngIf="dateError" class="error-text">{{ dateError }}</p>
+    </div>
+
+    <h3>Діагнози за ICPC-2</h3>
+    <ng-container *ngIf="selectedDiagnoses.length; else emptyState">
+        <diagnosis-item *ngFor="let row of selectedDiagnoses; index as i"
+                        [diagnosesItem]="row"
+                        [diagnoses]="diagnoses"
+                        (getListEvent)="handleGetList(i)"
+                        (selectedDiagnosisEvent)="handleSelectedDiagnosis($event, i)"></diagnosis-item>
+
+        <button *ngIf="selectedDiagnoses[selectedDiagnoses.length-1]?.name"
+                (click)="addItem()"
+                class="diagnoses-form__add-item">+ додати ще</button>
+
+        <button (click)="generateJson()"
+                class="btn">Сформувати JSON</button>
+    </ng-container>
+    <ng-template #emptyState>
+        <div class="empty-state">
+            <h3>Поки ще не додано жодного діагнозу</h3>
+            <button (click)="addItem()"
+                    class="btn">Додати діагноз</button>
+        </div>
+    </ng-template>
+
+    <h4>Json:</h4>
+    <textarea name="jsonOutput"
+              [(ngModel)]="formattedJson"
+              class="diagnoses-form__textarea"
+              cols="50"
+              rows="10"></textarea>
+</form>

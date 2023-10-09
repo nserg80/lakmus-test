@@ -1,0 +1,26 @@
+<div class="diagnosis-item">
+    <div class="diagnosis-item__selector"
+         [class.opened]="isShowList">
+        <input (click)="toggleList($event)"
+               [(ngModel)]="diagnosesItem.name"
+               (input)="onInputChange($event)"
+               class="diagnosis-item__selector-input"
+               placeholder="виберіть діагноз"
+               type="text">
+
+        <ul *ngIf="isShowList"
+            class="diagnosis-item__list">
+            <li *ngFor="let item of diagnosesToShow"
+                (click)="selectDiagnosis(item)"
+                class="diagnosis-item__list-item">{{ item.name }}</li>
+            <li *ngIf="!diagnosesToShow.length"
+                class="diagnosis-item__list-item">Значення не знайдено</li>
+        </ul>
+    </div>
+
+    <input class="diagnosis-item__comment"
+           type="text"
+           [(ngModel)]="diagnosesItem.comment"
+           [disabled]="!diagnosesItem.id"
+           placeholder="коментар">
+</div>

@@ -1,0 +1,72 @@
+.diagnosis-item {
+    display: flex;
+    gap: 16px;
+
+    &__selector {
+        flex: 1 0 0;
+        border: 1px solid #9F9F9F;
+        border-radius: 8px;
+        position: relative;
+
+        &.opened {
+            border-bottom: none;
+            border-radius: 8px 8px 0 0;
+        }
+
+        &::after {
+            content: '🢓';
+            position: absolute;
+            top: 7px;
+            right: 7px;
+            font-size: 30px;
+            width: 12px;
+            height: 12px;
+        }
+
+        &-input {
+            width: 100%;
+            background: none;
+            border: none;
+            outline: none;
+            padding: 0 20px 0 10px;
+            height: 38px;
+            text-overflow: ellipsis;
+        }
+    }
+
+    &__list {
+        position: absolute;
+        z-index: 10;
+        top: 100%;
+        left: 0;
+        right: 0;
+        max-height: 300px;
+        overflow-y: auto;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        background: #fff;
+        border: solid #9F9F9F;
+        border-width: 0 1px 1px;
+        border-radius: 0 0 8px 8px;
+
+        &-item {
+            padding: 3px 10px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #eef3fb;
+                color: #0957c3;
+            }
+        }
+    }
+
+    &__comment {
+        flex: 1 0 0;
+        border: 1px solid #9F9F9F;
+        border-radius: 8px;
+        outline: none;
+        padding: 0 10px;
+        height: 38px;
+    }
+}
