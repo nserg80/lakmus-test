@@ -34,7 +34,7 @@ export class DiagnosesFormComponent implements OnInit, OnDestroy {
     this.apiService.getDiagnoses()
       .pipe(
         tap((data: any[]) => {
-          this.diagnoses = JSON.parse(JSON.stringify(data));
+          this.diagnoses = data;
         }),
       )
       .subscribe();
